@@ -1,0 +1,92 @@
+/* CSS RESET */
+body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background: #ffffff; overflow: hidden; }
+
+/* --- TOP NAVIGATION BAR --- */
+.top-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-bottom: 3px solid #ff5a00; /* EZ-BOTIX Orange */
+    height: 55px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+}
+
+.brand-section {
+    display: flex;
+    align-items: center;
+    user-select: none;
+}
+.brand-icon {
+    font-size: 32px;
+    margin-right: 8px;
+}
+.brand-name {
+    font-size: 22px;
+    font-weight: 900;
+    color: #0f284d; /* EZ-BOTIX Navy */
+    letter-spacing: 1px;
+}
+
+.action-bar { display: flex; gap: 10px; align-items: center; }
+button, select { padding: 10px 16px; font-size: 15px; border-radius: 6px; font-weight: bold; border: none; transition: 0.2s; cursor: pointer; }
+select { background: #f5f7fb; border: 2px solid #ced4da; outline: none; }
+button:hover { filter: brightness(1.1); }
+button:active { transform: scale(0.96); }
+
+/* BRAND SPECIFIC COLORS */
+#loadBtn, #saveBtn, #disconnectBtn { background-color: #0f284d; color: white; }
+#refreshBtn { background-color: #6c757d; color: white; }
+#connectBtn { background-color: #00a8e8; color: white; }
+#runBtn { background-color: #2ec4b6; color: white; display: none; }
+#flashBtn { background-color: #ff5a00; color: white; display: none; }
+#stopBtn { background-color: #e71d36; color: white; display: none; }
+.status { font-weight: bold; margin-left: 10px; color: #e71d36; }
+
+/* --- PREMIUM NOTIFICATION BANNER --- */
+#customAlert {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 14px 24px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+}
+
+/* --- WORKSPACE WITH WATERMARK LOGO --- */
+#workspaceWrapper {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 55px);
+    background-color: #f5f7fb;
+}
+
+#watermark {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('../assets/logo.png') center no-repeat;
+    background-size: 450px;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#blocklyDiv { position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: 1; }
+
+/* CRITICAL FIX: Force Blockly to be transparent so the watermark shows */
+.blocklySvg { background-color: transparent !important; }
+.blocklyMainBackground { fill-opacity: 0 !important; stroke: none !important; }
+
+.blocklyTrashcan { display: block !important; opacity: 0.8; }
+.blocklyTrashcanLid, .blocklyTrashcanBody { fill: #e71d36 !important; }
