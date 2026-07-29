@@ -90,3 +90,17 @@ button:active { transform: scale(0.96); }
 
 .blocklyTrashcan { display: block !important; opacity: 0.8; }
 .blocklyTrashcanLid, .blocklyTrashcanBody { fill: #e71d36 !important; }
+
+/* --- CUSTOM BLOCKLY TOOLBOX STYLES --- */
+/* Making the left-side category buttons 30% larger */
+.blocklyTreeRow {
+    height: 42px !important; /* Default is ~32px, 30% larger is ~42px */
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.blocklyTreeLabel {
+    font-size: 19px !important; /* Default is usually ~14-15px */
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
