@@ -16,7 +16,7 @@ ICON_PATH = os.path.join(BASE_DIR, "web", "assets", "logo.png")
 
 
 def launch_desktop_bootloader():
-    api = AlphaBotAPI()
+    api =  AlphaBotAPI()
 
     window = webview.create_window(
         title="EZ-BOTIX Professional Workstation",

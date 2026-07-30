@@ -22,6 +22,7 @@ class DeviceController:
     EXECUTION_HEADER = (
         "from hal_car import car, onboard_led\n"
         "from hal_keypad import keypad\n"
+        "from hal_oled import oled\n"
         "import time\n\n"
     )
 
