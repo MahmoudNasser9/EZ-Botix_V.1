@@ -75,14 +75,15 @@ function handleBackendResponse(response) {
 }
 
 // Every block-generated program needs these imports available on the device.
-const EXECUTION_HEADER =
-    "from hal_car import car, onboard_led\n" +
-    "from hal_keypad import keypad\n" +
-    "import time\n\n";
+// const EXECUTION_HEADER =
+//     "from hal_car import car, onboard_led\n" +
+//     "from hal_keypad import keypad\n" +
+//     "from hal_oled import oled\n" +
+//     "import time\n\n";
 
 function generateExecutionPayload(ws) {
     const rawCode = python.pythonGenerator.workspaceToCode(ws);
-    return EXECUTION_HEADER + rawCode;
+    return rawCode;
 }
 
 // --- Workspace setup ---
