@@ -19,47 +19,47 @@ from backend.project_manager import ProjectManager
 
 class AlphaBotAPI:
     def __init__(self):
-        self.serial = SerialManager()
-        self.device = DeviceController(self.serial)
-        self.project = ProjectManager()
+        self._serial = SerialManager()
+        self._device = DeviceController(self._serial)
+        self._project = ProjectManager()
 
     def set_window(self, window):
-        self.project.set_window(window)
+        self._project.set_window(window)
 
     # --- Connectivity ---
 
     def get_ports(self):
         try:
-            return self.serial.list_ports()
+            return self._serial.list_ports()
         except Exception:
             return []
 
     def connect_device(self, port_name):
         try:
-            self.serial.connect(port_name)
+            self._serial.connect(port_name)
             return {"status": "success", "message": f"Connected to {port_name}"}
         except Exception as e:
             return {"status": "error", "message": str(e)}
 
     def disconnect_device(self):
-        self.serial.disconnect()
+        self._serial.disconnect()
         return {"status": "success"}
 
     # --- Code execution ---
 
     def run_code(self, code_string):
-        return self.device.run_code(code_string)
+        return self._device.run_code(code_string)
 
     def flash_code(self, code_string):
-        return self.device.flash_code(code_string)
+        return self._device.flash_code(code_string)
 
     def stop_device(self):
-        return self.device.stop_device()
+        return self._device.stop_device()
 
     # --- Project files ---
 
     def save_project(self, project_data):
-        return self.project.save_project(project_data)
+        return self._project.save_project(project_data)
 
     def load_project(self):
-        return self.project.load_project()
+        return self._project.load_project()

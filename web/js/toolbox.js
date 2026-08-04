@@ -12,7 +12,12 @@
 
 function buildToolboxXml() {
     const hardwareXml = EZBOTIX.hardwareCategories.map(cat => {
-        const blocks = cat.blocks.map(type => `<block type="${type}"></block>`).join('');
+        const blocks = cat.blocks.map(type => {
+            if (typeof type === 'string' && type.startsWith('<block')) {
+                return type;
+            }
+            return `<block type="${type}"></block>`;
+        }).join('');
         return `<category name="${cat.name}" colour="${cat.colour}">${blocks}</category>`;
     }).join('');
 

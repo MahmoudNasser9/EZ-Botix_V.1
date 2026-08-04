@@ -3,9 +3,9 @@ from machine import Pin, PWM
 import time
 
 class RobotBuzzer:
-    def __init__(self, pin=2):
-        # Configure the passive buzzer on the specified pin (GPIO 2 by default)
-        self.pwm = PWM(Pin(pin))
+    def __init__(self, pin=19):
+        # Configure the passive buzzer on the specified pin (GPIO 19 by default)
+        self.pwm = PWM(Pin(pin, Pin.OUT, Pin.PULL_UP))
         self.pwm.duty(0)
         
     def play_tone(self, freq, duration_ms=None):

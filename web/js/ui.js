@@ -19,13 +19,35 @@ function showMessage(message, isError = true) {
     }, 4000);
 }
 
+// --- Theme toggling ---
+const themeToggleBtn = document.getElementById('themeToggleBtn');
+let currentTheme = localStorage.getItem('theme') || 'light';
+
+function applyTheme(theme) {
+    if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggleBtn.textContent = '☀️';
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+        themeToggleBtn.textContent = '🌙';
+    }
+}
+
+applyTheme(currentTheme);
+
+themeToggleBtn.addEventListener('click', () => {
+    currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+    localStorage.setItem('theme', currentTheme);
+    applyTheme(currentTheme);
+});
+
 // --- Connected / disconnected screen states ---
 function toggleUIScreen(isConnected) {
     const el = id => document.getElementById(id);
 
     if (isConnected) {
         el('statusLabel').textContent = "Connected! 🎉";
-        el('statusLabel').style.color = "#2ec4b6";
+        el('statusLabel').style.color = "var(--text-status-success)";
         el('connectBtn').style.display = "none";
         el('portSelect').style.display = "none";
         el('refreshBtn').style.display = "none";
@@ -35,7 +57,7 @@ function toggleUIScreen(isConnected) {
         el('disconnectBtn').style.display = "inline-block";
     } else {
         el('statusLabel').textContent = "Disconnected";
-        el('statusLabel').style.color = "#e71d36";
+        el('statusLabel').style.color = "var(--text-status)";
         el('connectBtn').style.display = "inline-block";
         el('portSelect').style.display = "inline-block";
         el('refreshBtn').style.display = "inline-block";
@@ -94,6 +116,14 @@ const workspace = Blockly.inject('blocklyDiv', {
         scrollbars: { horizontal: true, vertical: true },
         drag: true,
         wheel: true
+    },
+    zoom: {
+        controls: true,
+        wheel: true,
+        startScale: 1.3,
+        maxScale: 3,
+        minScale: 0.3,
+        scaleSpeed: 1.2
     }
 });
 

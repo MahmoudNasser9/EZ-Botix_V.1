@@ -29,7 +29,7 @@ def launch_desktop_bootloader():
     )
 
     api.set_window(window)
-    webview.start(gui="qt", icon=ICON_PATH)
+    webview.start()
 
 
 if __name__ == "__main__":

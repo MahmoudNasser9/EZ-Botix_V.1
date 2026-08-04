@@ -1,10 +1,62 @@
 /* CSS RESET */
+:root {
+    --bg-main: #ffffff;
+    --bg-workspace: #f5f7fb;
+    --bg-navbar: #ffffff;
+    --text-primary: #0f284d;
+    --text-button: #ffffff;
+    --text-status: #e71d36;
+    --text-status-success: #2ec4b6;
+    --border-navbar: #ff5a00;
+    --btn-primary-bg: #0f284d;
+    --btn-scan-bg: #6c757d;
+    --btn-connect-bg: #00a8e8;
+    --btn-run-bg: #2ec4b6;
+    --btn-flash-bg: #ff5a00;
+    --btn-stop-bg: #e71d36;
+    --btn-theme-bg: #f5f7fb;
+    --btn-theme-text: #0f284d;
+    --select-bg: #f5f7fb;
+    --select-border: #ced4da;
+    --select-text: #000000;
+    --watermark-opacity: 0.15;
+    --watermark-filter: none;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] {
+    --bg-main: #0e1117;
+    --bg-workspace: #0b0d11;
+    --bg-navbar: #161b22;
+    --text-primary: #e6edf3;
+    --text-button: #ffffff;
+    --text-status: #ff7b72;
+    --text-status-success: #3fb950;
+    --border-navbar: #ff5a00;
+    --btn-primary-bg: #21262d;
+    --btn-scan-bg: #30363d;
+    --btn-connect-bg: #1f6feb;
+    --btn-run-bg: #238636;
+    --btn-flash-bg: #ff5a00;
+    --btn-stop-bg: #da3633;
+    --btn-theme-bg: #21262d;
+    --btn-theme-text: #e6edf3;
+    --select-bg: #21262d;
+    --select-border: #30363d;
+    --select-text: #e6edf3;
+    --watermark-opacity: 0.15;
+    --watermark-filter: brightness(1.5) contrast(1.2) drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.05));
+    --shadow-color: rgba(0, 0, 0, 0.8);
+}
+
 body {
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
     padding: 0;
-    background: #ffffff;
+    background: var(--bg-main);
+    color: var(--text-primary);
     overflow: hidden;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 /* --- TOP NAVIGATION BAR --- */
@@ -12,15 +64,15 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ffffff;
+    background-color: var(--bg-navbar);
     padding: 10px 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    border-bottom: 3px solid #ff5a00;
-    /* EZ-BOTIX Orange */
+    box-shadow: 0 4px 12px var(--shadow-color);
+    border-bottom: 3px solid var(--border-navbar);
     height: 55px;
     box-sizing: border-box;
     position: relative;
     z-index: 10;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 .brand-section {
@@ -37,8 +89,7 @@ body {
 .brand-name {
     font-size: 22px;
     font-weight: 900;
-    color: #0f284d;
-    /* EZ-BOTIX Navy */
+    color: var(--text-primary);
     letter-spacing: 1px;
 }
 
@@ -57,11 +108,13 @@ select {
     border: none;
     transition: 0.2s;
     cursor: pointer;
+    color: var(--text-button);
 }
 
 select {
-    background: #f5f7fb;
-    border: 2px solid #ced4da;
+    background: var(--select-bg);
+    border: 2px solid var(--select-border);
+    color: var(--select-text);
     outline: none;
 }
 
@@ -74,45 +127,47 @@ button:active {
 }
 
 /* BRAND SPECIFIC COLORS */
+#themeToggleBtn {
+    background-color: var(--btn-theme-bg);
+    color: var(--btn-theme-text);
+    font-size: 18px;
+    padding: 8px 12px;
+    margin-right: 15px;
+}
+
 #loadBtn,
 #saveBtn,
 #disconnectBtn {
-    background-color: #0f284d;
-    color: white;
+    background-color: var(--btn-primary-bg);
 }
 
 #refreshBtn {
-    background-color: #6c757d;
-    color: white;
+    background-color: var(--btn-scan-bg);
 }
 
 #connectBtn {
-    background-color: #00a8e8;
-    color: white;
+    background-color: var(--btn-connect-bg);
 }
 
 #runBtn {
-    background-color: #2ec4b6;
-    color: white;
+    background-color: var(--btn-run-bg);
     display: none;
 }
 
 #flashBtn {
-    background-color: #ff5a00;
-    color: white;
+    background-color: var(--btn-flash-bg);
     display: none;
 }
 
 #stopBtn {
-    background-color: #e71d36;
-    color: white;
+    background-color: var(--btn-stop-bg);
     display: none;
 }
 
 .status {
     font-weight: bold;
     margin-left: 10px;
-    color: #e71d36;
+    color: var(--text-status);
 }
 
 /* --- PREMIUM NOTIFICATION BANNER --- */
@@ -127,7 +182,7 @@ button:active {
     color: white;
     font-weight: bold;
     font-size: 16px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px var(--shadow-color);
     z-index: 9999;
     transition: opacity 0.3s ease;
 }
@@ -137,7 +192,8 @@ button:active {
     position: relative;
     width: 100%;
     height: calc(100vh - 55px);
-    background-color: #f5f7fb;
+    background-color: var(--bg-workspace);
+    transition: background-color 0.3s;
 }
 
 #watermark {
@@ -146,11 +202,13 @@ button:active {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../assets/logo_2.png') center no-repeat;
+    background: url('../assets/logo_trans.png') center no-repeat;
     background-size: 800px;
-    opacity: 0.20;
+    opacity: var(--watermark-opacity);
+    filter: var(--watermark-filter);
     pointer-events: none;
     z-index: 0;
+    transition: opacity 0.3s, filter 0.3s;
 }
 
 #blocklyDiv {
@@ -163,6 +221,7 @@ button:active {
 }
 
 /* CRITICAL FIX: Force Blockly to be transparent so the watermark shows */
+.injectionDiv,
 .blocklySvg {
     background-color: transparent !important;
 }
@@ -179,21 +238,48 @@ button:active {
 
 .blocklyTrashcanLid,
 .blocklyTrashcanBody {
-    fill: #e71d36 !important;
+    fill: var(--btn-stop-bg) !important;
 }
 
 /* --- CUSTOM BLOCKLY TOOLBOX STYLES --- */
-/* Making the left-side category buttons 30% larger */
-.blocklyTreeRow {
-    height: 60px !important;
-    /* Default is ~32px, 30% larger is ~42px */
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
+.blocklyToolbox,
+.blocklyToolboxDiv {
+    background-color: var(--bg-navbar) !important;
+    border-right: 1px solid var(--select-border);
+    color: var(--text-primary) !important;
 }
 
-.blocklyTreeLabel {
-    font-size: 30px !important;
-    /* Default is usually ~14-15px */
+.blocklyTreeRoot,
+.blocklyToolboxCategoryContainer {
+    background-color: var(--bg-navbar) !important;
+}
+
+.blocklyTreeRow,
+.blocklyToolboxCategory {
+    height: 60px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    background-color: transparent !important;
+}
+
+.blocklyTreeRow:hover,
+.blocklyToolboxCategory:hover {
+    background-color: var(--btn-primary-bg) !important;
+}
+
+.blocklyTreeLabel,
+.blocklyToolboxCategoryLabel {
+    font-size: 25px !important;
     padding-left: 10px !important;
     padding-right: 10px !important;
+    color: var(--text-primary) !important;
+}
+
+.blocklyFlyoutBackground {
+    fill: var(--bg-navbar) !important;
+    fill-opacity: 0.95 !important;
+}
+
+.blocklyScrollbarKnob {
+    fill: var(--btn-scan-bg) !important;
 }

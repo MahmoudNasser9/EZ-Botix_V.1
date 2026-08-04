@@ -20,7 +20,8 @@ import serial
 class DeviceController:
     # Every block-generated program needs these names available on the device.
     EXECUTION_HEADER = (
-        "from hal_car import car, onboard_led\n"
+        "from hal_LED import onboard_led, external_led\n"
+        "from hal_motor import car\n"
         "from hal_keypad import keypad\n"
         "from hal_oled import oled\n"
         "from hal_buzzer import buzzer\n"
@@ -112,10 +113,12 @@ class DeviceController:
             # referenced onboard_led.value(0) without importing it, which
             # raised a NameError on every Stop press.
             stop_script = (
-                "from hal_car import car, onboard_led\n"
+                "from hal_LED import onboard_led, external_led\n"
+                "from hal_motor import car\n"
                 "from hal_buzzer import buzzer\n"
                 "car.stop()\n"
                 "onboard_led.value(0)\n"
+                "external_led.value(0)\n"
                 "buzzer.stop()\n"
             )
             self._enter_raw_repl()
