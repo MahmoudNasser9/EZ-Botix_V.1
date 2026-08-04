@@ -146,9 +146,9 @@ button:active {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../assets/logo.png') center no-repeat;
+    background: url('../assets/logo_2.png') center no-repeat;
     background-size: 800px;
-    opacity: 0.15;
+    opacity: 0.20;
     pointer-events: none;
     z-index: 0;
 }
