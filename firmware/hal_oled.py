@@ -15,6 +15,7 @@
 import time
 import framebuf
 import math
+import gc
 from machine import Pin, I2C
 
 try:
@@ -107,7 +108,6 @@ class RobotOLED:
         self.display = None
 
         try:
-            import gc
             gc.collect()  # Garbage collect to maximize contiguous RAM
 
             self.i2c = I2C(0, scl=Pin(scl_pin), sda=Pin(sda_pin), freq=400000)
@@ -213,6 +213,7 @@ class RobotOLED:
 
         for scale in range(4, 0, -1):
             char_w = 8 * scale
+            char_h = 8 * scale  # Define here so it is available for rows calculation
             cols = self.W // char_w
             rows = self.H // char_h
             if cols == 0:
@@ -247,6 +248,8 @@ class RobotOLED:
         d = self.display
         d.fill(0)
 
+        # Normalize: strip whitespace and lowercase. Keep underscores as-is since
+        # emoji names use underscores (e.g. "angry_eyes", "hollow_eyes").
         name = str(emoji_name).strip().lower()
 
         if name == "heart":
@@ -266,14 +269,8 @@ class RobotOLED:
                             start_x = -1
                 if start_x != -1:
                     d.hline(40 + start_x, 16 + y, 48 - start_x, 1)
-            # # Display a beautifully scaled (2x)64x64 filled heart
-            # # Safe and memory-efficient way to double the size without new bitmaps!
-            # for y in range(32):
-            #     for x in range(32):
-            #         if self.fb32f.pixel(x, y):
-            #             d.fill_rect(32 + (x * 2), y * 2, 2, 2, 1)
-                        
         elif name == "angry_eyes":
+
             # Slanted heavy brows connected smoothly to narrowed eyes
             d.fill_rect(24, 40, 32, 16, 1); d.fill_rect(72, 40, 32, 16, 1)
             for i in range(8):
@@ -420,7 +417,7 @@ class RobotOLED:
             self._anim_sad(d, draw_open, lx, ly, lw, lh, rx, ry, rw, rh, ps, lpc_x, lpc_y, rpc_x, rpc_y)
         elif anim_key == "sad cry":
             self._anim_sad_cry(d, draw_open, lx, ly, lw, lh, rx, ry, rw, rh, ps, lpc_x, lpc_y, rpc_x, rpc_y)
-        elif anim_key in ("sad trembling", "sad trembling"):
+        elif anim_key == "sad trembling":
             self._anim_sad_trembling(d, draw_open, lx, ly, lw, lh, rx, ry, rw, rh, ps, lpc_x, lpc_y, rpc_x, rpc_y)
         elif anim_key == "surprised":
             self._anim_surprised(d, draw_open, _blink_eye, draw_squash, lx, ly, lw, lh, rx, ry, rw, rh, ps, lpc_x, lpc_y, rpc_x, rpc_y)
@@ -453,13 +450,13 @@ class RobotOLED:
         """Displays an angry expression by narrowing the eyes, dropping eyebrows, and shaking."""
         d.fill(0)
         d.fill_rect(24, 40, 32, 16, 1); d.fill_rect(72, 40, 32, 16, 1)
-        # Add small angry pupils
-        d.fill_rect(36, 48, 8, 8, 0); d.fill_rect(84, 48, 8, 8, 0)
         d.show(); time.sleep_ms(350)
 
         for i in range(8):
             d.line(16, 24 + i, 56, 40 + i, 1)
             d.line(112, 24 + i, 72, 40 + i, 1)
+        # Draw pupils AFTER brows so they are not overwritten
+        d.fill_rect(36, 48, 8, 8, 0); d.fill_rect(84, 48, 8, 8, 0)
         d.show(); time.sleep_ms(250)
 
         for shake in range(6):
@@ -678,7 +675,7 @@ class RobotOLED:
         """Spins the pupils in a circular motion."""
         r = max(2, min(lw, lh) // 2 - ps - 2)
         cx_l, cy_l = lpc_x + ps // 2, lpc_y + ps // 2
-        cx_r, cy_r = rpc_x + ps // 2, rpc_y + ps // 2
+        cx_r, cy_r = rpc_x + ps // 2, rpc_y + ps // 2  # Centre of each eye's pupil zone
         for i in range(25):
             angle = (2 * math.pi * i) / 20
             ox = int(r * math.cos(angle))
@@ -690,7 +687,7 @@ class RobotOLED:
 
     def _anim_dizzy(self, draw_open, lw, lh, ps, lpc_x, lpc_y, rpc_x, rpc_y):
         """Spins the pupils in a decreasing spiral to simulate dizziness."""
-        for rep in range(2):
+        for _ in range(2):  # Two full spiral repetitions
             for i in range(20):
                 angle = (2 * math.pi * i) / 20
                 r = int((1 - i / 20) * (min(lw, lh) // 2 - ps - 2))

@@ -23,6 +23,7 @@ class DeviceController:
         "from hal_car import car, onboard_led\n"
         "from hal_keypad import keypad\n"
         "from hal_oled import oled\n"
+        "from hal_buzzer import buzzer\n"
         "import time\n\n"
     )
 
@@ -112,8 +113,10 @@ class DeviceController:
             # raised a NameError on every Stop press.
             stop_script = (
                 "from hal_car import car, onboard_led\n"
+                "from hal_buzzer import buzzer\n"
                 "car.stop()\n"
                 "onboard_led.value(0)\n"
+                "buzzer.stop()\n"
             )
             self._enter_raw_repl()
             self._execute_raw(stop_script)
