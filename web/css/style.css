@@ -263,8 +263,17 @@ button:active {
 }
 
 .blocklyTreeRow:hover,
-.blocklyToolboxCategory:hover {
+.blocklyToolboxCategory:hover,
+.blocklyTreeSelected,
+.blocklyToolboxCategory[aria-selected="true"] {
     background-color: var(--btn-primary-bg) !important;
+}
+
+.blocklyTreeRow:hover .blocklyTreeLabel,
+.blocklyToolboxCategory:hover .blocklyToolboxCategoryLabel,
+.blocklyTreeSelected .blocklyTreeLabel,
+.blocklyToolboxCategory[aria-selected="true"] .blocklyToolboxCategoryLabel {
+    color: var(--text-button) !important;
 }
 
 .blocklyTreeLabel,

@@ -45,8 +45,37 @@ python.pythonGenerator.forBlock['buzzer_stop'] = function (block) {
     return `buzzer.stop()\n`;
 };
 
+Blockly.Blocks['buzzer_play_melody'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("🎵 Play Melody")
+            .appendField(new Blockly.FieldDropdown([
+                ["Super Mario", "Mario"],
+                ["Star Wars", "StarWars"],
+                ["Police Siren", "Siren"],
+                ["Happy Birthday", "Happy"],
+                ["Car Horn", "CarHorn"],
+                ["Truck Horn", "TruckHorn"],
+                ["Power Up", "PowerUp"],
+                ["Power Down", "PowerDown"],
+                ["Error Bzzzt", "Error"],
+                ["Success Ding", "Success"],
+                ["Mission Impossible", "MissionImpossible"]
+            ]), "MELODY");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(300);
+        this.setTooltip("Plays a pre-programmed melody on the buzzer.");
+    }
+};
+
+python.pythonGenerator.forBlock['buzzer_play_melody'] = function (block) {
+    var melody = block.getFieldValue('MELODY');
+    return `buzzer.play_melody("${melody}")\n`;
+};
+
 EZBOTIX.registerCategory({
     name: "🔊 Sound",
     colour: 300,
-    blocks: ["buzzer_play_tone", "buzzer_stop"]
+    blocks: ["buzzer_play_tone", "buzzer_play_melody", "buzzer_stop"]
 });

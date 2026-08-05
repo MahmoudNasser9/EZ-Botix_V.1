@@ -18,13 +18,16 @@ import serial
 
 
 class DeviceController:
+    KEY_PAD_IS_ENABLE = False
+
     # Every block-generated program needs these names available on the device.
     EXECUTION_HEADER = (
         "from hal_LED import onboard_led, external_led\n"
         "from hal_motor import car\n"
-        "from hal_keypad import keypad\n"
+        + ("from hal_keypad import keypad\n" if KEY_PAD_IS_ENABLE else "") +
         "from hal_oled import oled\n"
         "from hal_buzzer import buzzer\n"
+        "from hal_button import button\n"
         "import time\n\n"
     )
 
