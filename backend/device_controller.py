@@ -28,6 +28,7 @@ class DeviceController:
         "from hal_oled import oled\n"
         "from hal_buzzer import buzzer\n"
         "from hal_button import button\n"
+        "from hal_RGB_LED import rgb_front, rgb_back\n"
         "import time\n\n"
     )
 
@@ -119,10 +120,13 @@ class DeviceController:
                 "from hal_LED import onboard_led, external_led\n"
                 "from hal_motor import car\n"
                 "from hal_buzzer import buzzer\n"
+                "from hal_RGB_LED import rgb_front, rgb_back\n"
                 "car.stop()\n"
                 "onboard_led.value(0)\n"
                 "external_led.value(0)\n"
                 "buzzer.stop()\n"
+                "rgb_front.clear()\n"
+                "rgb_back.clear()\n"
             )
             self._enter_raw_repl()
             self._execute_raw(stop_script)
