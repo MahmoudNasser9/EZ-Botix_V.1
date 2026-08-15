@@ -29,6 +29,7 @@ class DeviceController:
         "from hal_buzzer import buzzer\n"
         "from hal_button import button\n"
         "from hal_RGB_LED import rgb_front, rgb_back\n"
+        "from hal_scheduler import scheduler\n"
         "import time\n\n"
     )
 
@@ -121,12 +122,14 @@ class DeviceController:
                 "from hal_motor import car\n"
                 "from hal_buzzer import buzzer\n"
                 "from hal_RGB_LED import rgb_front, rgb_back\n"
+                "from hal_scheduler import scheduler\n"
                 "car.stop()\n"
                 "onboard_led.value(0)\n"
                 "external_led.value(0)\n"
                 "buzzer.stop()\n"
                 "rgb_front.clear()\n"
                 "rgb_back.clear()\n"
+                "scheduler.clear()\n"
             )
             self._enter_raw_repl()
             self._execute_raw(stop_script)

@@ -22,7 +22,8 @@ Blockly.Blocks['led_toggle'] = {
             ]), "LED_SELECT")
             .appendField(new Blockly.FieldDropdown([
                 ["ON", "1"],
-                ["OFF", "0"]
+                ["OFF", "0"],
+                ["TOGGLE", "toggle"]
             ]), "STATE");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -33,6 +34,9 @@ Blockly.Blocks['led_toggle'] = {
 python.pythonGenerator.forBlock['led_toggle'] = function (block) {
     const led = block.getFieldValue('LED_SELECT');
     const state = block.getFieldValue('STATE');
+    if (state === "toggle") {
+        return `${led}.toggle()\n`;
+    }
     return `${led}.value(${state})\n`;
 };
 

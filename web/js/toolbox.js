@@ -43,6 +43,13 @@ function buildToolboxXml() {
                 <value name="TIMES"><block type="math_number"><field name="NUM">5</field></block></value>
             </block>
             <block type="controls_whileUntil"></block>
+            <block type="controls_whileUntil">
+                <value name="BOOL">
+                    <block type="logic_boolean">
+                        <field name="BOOL">TRUE</field>
+                    </block>
+                </value>
+            </block>
             <block type="controls_for">
                 <value name="FROM"><block type="math_number"><field name="NUM">1</field></block></value>
                 <value name="TO"><block type="math_number"><field name="NUM">10</field></block></value>
@@ -51,17 +58,15 @@ function buildToolboxXml() {
             <block type="controls_forEach"></block>
             <block type="controls_flow_statements"></block>
         </category>
+        <category name="⏱️ Tasks" colour="260">
+            <block type="task_every_ms"></block>
+            <block type="scheduler_run"></block>
+            <block type="scheduler_tick"></block>
+        </category>
         <category name="🔢 Math" colour="230">
             <block type="math_number"></block>
             <block type="math_arithmetic"></block>
-            <block type="math_single"></block>
-            <block type="math_trig"></block>
-            <block type="math_constant"></block>
-            <block type="math_number_property"></block>
-            <block type="math_round"></block>
-            <block type="math_modulo"></block>
             <block type="math_constrain"></block>
-            <block type="math_random_int"></block>
         </category>
         <category name="📝 Text" colour="160">
             <block type="text"></block>
@@ -71,6 +76,7 @@ function buildToolboxXml() {
             <block type="text_isEmpty"></block>
         </category>
         <category name="📊 Variables" custom="VARIABLE" colour="330"></category>
+        <category name="⚡ Functions" custom="PROCEDURE" colour="290"></category>
     `;
 
     const xmlString = `<xml>${hardwareXml}<sep></sep>${standardXml}</xml>`;

@@ -12,6 +12,10 @@ class InvertedLED:
         # Invert the logic: requested ON (1) -> write LOW (0)
         self._pin.value(0 if val else 1)
 
+    def toggle(self):
+        # Toggle the underlying pin state
+        self._pin.toggle()
+
 # Custom external LED at GPIO 5 (Active LOW due to 3.3V pull-up)
 external_led = InvertedLED(17) # TX2
 
