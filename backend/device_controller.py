@@ -29,6 +29,7 @@ class DeviceController:
         "from hal_buzzer import buzzer\n"
         "from hal_button import button\n"
         "from hal_RGB_LED import rgb_front, rgb_back\n"
+        "from hal_ultrasonic import ultrasonic\n"
         "from hal_scheduler import scheduler\n"
         "import time\n\n"
     )
