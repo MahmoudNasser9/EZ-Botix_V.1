@@ -49,6 +49,35 @@ python.pythonGenerator.forBlock['button_is_pressed'] = function (block) {
 
 inputBlocks.push("button_is_pressed");
 
+// IR Sensor
+Blockly.Blocks['ir_obstacle_detected'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("👀 Obstacle is detected?");
+        this.setOutput(true, "Boolean");
+        this.setColour(65);
+    }
+};
+
+python.pythonGenerator.forBlock['ir_obstacle_detected'] = function (block) {
+    return [`ir_sensor.is_obstacle_detected()`, python.Order.FUNCTION_CALL];
+};
+
+Blockly.Blocks['ir_digital_value'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("👀 IR digital value");
+        this.setOutput(true, "Number");
+        this.setColour(65);
+    }
+};
+
+python.pythonGenerator.forBlock['ir_digital_value'] = function (block) {
+    return [`ir_sensor.get_digital_value()`, python.Order.FUNCTION_CALL];
+};
+
+inputBlocks.push("ir_obstacle_detected", "ir_digital_value");
+
 EZBOTIX.registerCategory({
     name: "⌨️ Inputs",
     colour: 65,

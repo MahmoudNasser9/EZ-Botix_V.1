@@ -26,8 +26,9 @@ class DeviceController:
         "from hal_motor import car\n"
         + ("from hal_keypad import keypad\n" if KEY_PAD_IS_ENABLE else "") +
         "from hal_oled import oled\n"
-        "from hal_buzzer import buzzer\n"
+        "from hal_buzzer import buzzer\n"   
         "from hal_button import button\n"
+        "from hal_ir import ir_sensor\n"
         "from hal_RGB_LED import rgb_front, rgb_back\n"
         "from hal_scheduler import scheduler\n"
         "import time\n\n"
