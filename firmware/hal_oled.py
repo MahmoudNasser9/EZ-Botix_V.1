@@ -245,9 +245,34 @@ class RobotOLED:
         """Displays static predefined emoji shapes on display."""
         if not self.display:
             return
-        d = self.display
-        d.fill(0)
+        self.display.fill(0)
+        self._draw_emoji_internal(emoji_name)
+        self.display.show()
 
+    def show_text_and_emoji(self, text, emoji_name):
+        """Displays text at the top of the screen and an emoji below it."""
+        if not self.display:
+            return
+        self.display.fill(0)
+        
+        # Draw emoji
+        self._draw_emoji_internal(emoji_name)
+        
+        # Draw text at the top
+        text_str = str(text)
+        scale = 2 if len(text_str) <= 8 else 1
+        char_w = 8 * scale
+        x = max(0, (self.W - len(text_str) * char_w) // 2)
+        y = 0 if scale == 2 else 4
+        
+        # Clear a small background behind text just in case of overlap
+        self.display.fill_rect(0, 0, self.W, 8 * scale, 0)
+        self._draw_scaled_text(text_str, x, y, scale)
+        
+        self.display.show()
+
+    def _draw_emoji_internal(self, emoji_name):
+        d = self.display
         # Normalize: strip whitespace and lowercase. Keep underscores as-is since
         # emoji names use underscores (e.g. "angry_eyes", "hollow_eyes").
         name = str(emoji_name).strip().lower()
@@ -302,8 +327,6 @@ class RobotOLED:
                 d.fill_rect(rpc_x + 2, rpc_y + 2, 4, 4, 1)
         else:
             d.text("?", 60, 28, 1)
-
-        d.show()
 
     # --------------------------------------------------------------------------
     # Modular Eye Animation Engine

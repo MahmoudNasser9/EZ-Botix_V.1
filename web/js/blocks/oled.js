@@ -86,6 +86,39 @@ python.pythonGenerator.forBlock['oled_show_emoji'] = function (block) {
     return `oled.show_emoji("${emoji}")\n`;
 };
 
+// ============================================================= 3.5. TEXT + EMOJI
+Blockly.Blocks['oled_show_text_and_emoji'] = {
+    init: function () {
+        this.appendValueInput("TEXT")
+            .setCheck(null)
+            .appendField("📺 OLED show text");
+        this.appendDummyInput()
+            .appendField(" with emoji")
+            .appendField(new Blockly.FieldDropdown([
+                ["❤️ Heart", "heart"],
+                ["🥺 Cute Eyes", "cute_eyes"],
+                ["😠 Angry Eyes", "angry_eyes"],
+                ["👀 Big Eyes ", "big_eyes"],
+                ["👁️ Hollow Eyes", "hollow_eyes"],
+                ["😑 Wide Eyes", "wide_eyes"],
+                ["👽 Tall Eyes ", "tall_eyes"],
+                ["⬛ Small Eyes ", "small_eyes"]
+            ]), "EMOJI");
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(195);
+        this.setTooltip("Displays text at the top of the screen and an emoji below it.");
+        this.setHelpUrl("");
+    }
+};
+
+python.pythonGenerator.forBlock['oled_show_text_and_emoji'] = function (block) {
+    var text = python.pythonGenerator.valueToCode(block, 'TEXT', python.Order.ATOMIC) || '""';
+    var emoji = block.getFieldValue('EMOJI');
+    return `oled.show_text_and_emoji(${text}, "${emoji}")\n`;
+};
+
 // ============================================================= 4. ANIMATE EYES
 Blockly.Blocks['oled_animate_eyes'] = {
     init: function () {
@@ -188,8 +221,57 @@ EZBOTIX.registerCategory({
     name: "📺 OLED",
     colour: 195,
     blocks: [
-        "oled_show_text",
-        "oled_show_text_fit",
+        // 1. Basic show text with a shadow string block
+        `<block type="oled_show_text">
+            <value name="TEXT">
+                <shadow type="text">
+                    <field name="TEXT">Hello</field>
+                </shadow>
+            </value>
+        </block>`,
+        
+        // 2. Generic "Show Text + Variable" (pre-assembled in toolbox)
+        `<block type="oled_show_text">
+            <value name="TEXT">
+                <block type="text_join">
+                    <mutation items="2"></mutation>
+                    <value name="ADD0">
+                        <shadow type="text">
+                            <field name="TEXT">Dist: </field>
+                        </shadow>
+                    </value>
+                </block>
+            </value>
+        </block>`,
+
+        // 3. Smart fit text with shadow
+        `<block type="oled_show_text_fit">
+            <value name="TEXT">
+                <block type="text_join">
+                    <mutation items="2"></mutation>
+                    <value name="ADD0">
+                        <shadow type="text">
+                            <field name="TEXT">Dist: </field>
+                        </shadow>
+                    </value>
+                    <value name="ADD1">
+                        <shadow type="text">
+                            <field name="TEXT">10</field>
+                        </shadow>
+                    </value>
+                </block>
+            </value>
+        </block>`,
+        
+        // 4. Text + Emoji with shadow
+        `<block type="oled_show_text_and_emoji">
+            <value name="TEXT">
+                <shadow type="text">
+                    <field name="TEXT">100</field>
+                </shadow>
+            </value>
+        </block>`,
+        
         "oled_show_emoji",
         "oled_animate_eyes",
         "oled_animate_heartbeat"
