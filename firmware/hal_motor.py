@@ -1,5 +1,6 @@
 # hal_motor.py
 from machine import Pin, PWM
+from pin_config import PINS
 
 class Motor:
     """
@@ -42,14 +43,11 @@ class RobotDrive:
     Hardware abstraction for the EZ-BOTIX differential drive base.
     """
     def __init__(self):
-        # Schematic mapping:
-        # Left motors (OUT3 & OUT4) are controlled by M_IN1 and M_IN2
-        # M_IN1 -> GPIO32, M_IN2 -> GPIO33
-        self.motor_left = Motor(32, 33)
+        # Left motors (OUT3 & OUT4) controlled by M_IN1 and M_IN2
+        self.motor_left = Motor(PINS["MOTOR_L_IN1"], PINS["MOTOR_L_IN2"])
         
-        # Right motors (OUT1 & OUT2) are controlled by M_IN3 and M_IN4
-        # M_IN3 -> GPIO25, M_IN4 -> GPIO26
-        self.motor_right = Motor(25, 26)
+        # Right motors (OUT1 & OUT2) controlled by M_IN3 and M_IN4
+        self.motor_right = Motor(PINS["MOTOR_R_IN1"], PINS["MOTOR_R_IN2"])
 
     def drive(self, left_speed, right_speed):
         """

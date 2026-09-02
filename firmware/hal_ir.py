@@ -1,4 +1,5 @@
 from machine import Pin, ADC
+from pin_config import PINS
 
 class IRSensor:
     def __init__(self, pin_num):
@@ -19,5 +20,5 @@ class IRSensor:
         """
         return self._pin.value()
 
-# The sensor is connected to D34 (Pin 34)
-ir_sensor = IRSensor(34)
+# Pin is defined centrally in pin_config.py
+ir_sensor = IRSensor(PINS["IR_SENSOR"])

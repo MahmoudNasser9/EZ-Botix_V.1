@@ -1,12 +1,23 @@
 # hal_keypad.py
 from machine import Pin
 import time
+from pin_config import PINS
 
 class MatrixKeypad:
     def __init__(self):
-        # Explicit ESP32 pin maps for row outputs and column inputs
-        self.row_pins = [Pin(13, Pin.OUT), Pin(12, Pin.OUT), Pin(14, Pin.OUT), Pin(27, Pin.OUT)]
-        self.col_pins = [Pin(26, Pin.IN, Pin.PULL_DOWN), Pin(25, Pin.IN, Pin.PULL_DOWN), Pin(33, Pin.IN, Pin.PULL_DOWN), Pin(32, Pin.IN, Pin.PULL_DOWN)]
+        # Row outputs and column inputs defined centrally in pin_config.py
+        self.row_pins = [
+            Pin(PINS["KEYPAD_ROW0"], Pin.OUT),
+            Pin(PINS["KEYPAD_ROW1"], Pin.OUT),
+            Pin(PINS["KEYPAD_ROW2"], Pin.OUT),
+            Pin(PINS["KEYPAD_ROW3"], Pin.OUT),
+        ]
+        self.col_pins = [
+            Pin(PINS["KEYPAD_COL0"], Pin.IN, Pin.PULL_DOWN),
+            Pin(PINS["KEYPAD_COL1"], Pin.IN, Pin.PULL_DOWN),
+            Pin(PINS["KEYPAD_COL2"], Pin.IN, Pin.PULL_DOWN),
+            Pin(PINS["KEYPAD_COL3"], Pin.IN, Pin.PULL_DOWN),
+        ]
         
         self.layout = [
             ['1','2','3','A'],

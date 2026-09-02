@@ -17,6 +17,7 @@ import framebuf
 import math
 import gc
 from machine import Pin, I2C
+from pin_config import PINS
 
 try:
     import urandom as random
@@ -104,7 +105,11 @@ class RobotOLED:
     W = 128
     H = 64
 
-    def __init__(self, scl_pin=22, sda_pin=21):
+    def __init__(self, scl_pin=None, sda_pin=None):
+        if scl_pin is None:
+            scl_pin = PINS["OLED_SCL"]
+        if sda_pin is None:
+            sda_pin = PINS["OLED_SDA"]
         self.display = None
 
         try:

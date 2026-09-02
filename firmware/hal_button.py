@@ -1,4 +1,5 @@
 from machine import Pin
+from pin_config import PINS
 
 class Button:
     def __init__(self, pin_num):
@@ -11,5 +12,5 @@ class Button:
         # Because of the pull-up, it reads 1 when idle and 0 when pressed.
         return self._pin.value() == 0
 
-# D19 is Pin 19
-button = Button(23)
+# Pin is defined centrally in pin_config.py
+button = Button(PINS["BUTTON"])

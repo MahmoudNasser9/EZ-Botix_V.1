@@ -1,9 +1,12 @@
 # hal_buzzer.py
 from machine import Pin, PWM
 import time
+from pin_config import PINS
 
 class RobotBuzzer:
-    def __init__(self, pin=19):
+    def __init__(self, pin=None):
+        if pin is None:
+            pin = PINS["BUZZER"]
         # Configure the passive buzzer on the specified pin (GPIO 19 by default)
         # Avoid PULL_UP, as it leaks current and causes a faint hum!
         # Initialize PWM with duty=0 to prevent startup glitches.

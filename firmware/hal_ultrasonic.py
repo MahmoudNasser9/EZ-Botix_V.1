@@ -1,12 +1,17 @@
 # hal_ultrasonic.py
 from machine import Pin, time_pulse_us
 import time
+from pin_config import PINS
 
 class Ultrasonic:
     """
     Hardware abstraction for an HC-SR04 ultrasonic sensor.
     """
-    def __init__(self, trigger_pin=14, echo_pin=27):
+    def __init__(self, trigger_pin=None, echo_pin=None):
+        if trigger_pin is None:
+            trigger_pin = PINS["ULTRASONIC_TRIG"]
+        if echo_pin is None:
+            echo_pin = PINS["ULTRASONIC_ECHO"]
         self.trigger = Pin(trigger_pin, Pin.OUT)
         self.echo = Pin(echo_pin, Pin.IN)
         self.trigger.value(0)
@@ -39,5 +44,5 @@ class Ultrasonic:
             # Timeout or other error
             return -1
 
-# Expose a global instance for easy use in user code
-ultrasonic = Ultrasonic(trigger_pin=14, echo_pin=27)
+# Pins are defined centrally in pin_config.py
+ultrasonic = Ultrasonic()

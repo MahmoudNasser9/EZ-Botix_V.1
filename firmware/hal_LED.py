@@ -1,7 +1,8 @@
 from machine import Pin
+from pin_config import PINS
 
-# Standard ESP32 dev board onboard LED is GPIO 2 (Active HIGH)
-onboard_led = Pin(2, Pin.OUT)
+# Standard ESP32 dev board onboard LED (Active HIGH)
+onboard_led = Pin(PINS["LED_ONBOARD"], Pin.OUT)
 
 class InvertedLED:
     """Wrapper for pull-up LEDs where writing 0 turns it ON and 1 turns it OFF."""
@@ -16,8 +17,8 @@ class InvertedLED:
         # Toggle the underlying pin state
         self._pin.toggle()
 
-# Custom external LED at GPIO 5 (Active LOW due to 3.3V pull-up)
-external_led = InvertedLED(17) # TX2
+# External LED at TX2 (Active LOW due to 3.3V pull-up)
+external_led = InvertedLED(PINS["LED_EXTERNAL"])
 
 # Ensure they start turned off (0)
 onboard_led.value(0)

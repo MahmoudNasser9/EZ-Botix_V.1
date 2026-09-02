@@ -18,6 +18,7 @@
 import neopixel
 from machine import Pin
 import time
+from pin_config import PINS
 
 
 class RGBStrip:
@@ -195,5 +196,5 @@ class RGBStrip:
 #   rgb_back   -> GPIO 13 (LED_DATA_B)  -> J12 RGB_LED_B  (8 LEDs)
 # ---------------------------------------------------------------------------
 
-rgb_front = RGBStrip(pin=15, num_leds=8)
-rgb_back  = RGBStrip(pin=13, num_leds=8)
+rgb_front = RGBStrip(pin=PINS["RGB_FRONT"], num_leds=PINS["RGB_NUM_LEDS"])
+rgb_back  = RGBStrip(pin=PINS["RGB_BACK"],  num_leds=PINS["RGB_NUM_LEDS"])
