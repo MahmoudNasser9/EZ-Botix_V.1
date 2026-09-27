@@ -26,3 +26,26 @@ The features I need are:-
 - The cyclic function should handel if the command is run and after time will stop should this function stop the command after this time.
 for example if i want to run buzzer for 500ms, The system should not blocked!! until the buzzer time is finsh the cyclic time handel this.
 - Please, Can you make a plan and Architectural Design for driver.
+
+
+---
+I’d like you to take a moment to catch your breath and focus so we can start the design process now.
+I will be using KiCad for the design.
+We will focus first on power distribution.
+We will use two 18650 batteries.
+So I want you to tell me in detail the path of power to supply all components and also charge the batteries.
+The components
+
+1 - Two TT yellow motors.
+
+2- Calculate distance by using Ultarsonic
+
+3- Passive buzzer.
+
+4- Line follower using two IR sensors.
+
+5- OLED 0.96''display or TFT LCD Display SPI ST7789.
+
+6- WS2812 5050 RGB LED Driver Module Board 8 LEDs.
+
+7- We can also add two light sensors to make car Trace the path of light

@@ -33,6 +33,18 @@ class DeviceController:
         "from hal_ultrasonic import ultrasonic\n"
         "from hal_scheduler import scheduler\n"
         "import time\n\n"
+        "# V2: Reset everything to clean state\n"
+        "scheduler.clear()\n"
+        "buzzer.stop()\n"
+        "onboard_led.off()\n"
+        "external_led.off()\n\n"
+        "# V2: Register drivers fresh\n"
+        "scheduler.register_driver(buzzer)\n\n"
+    )
+
+    EXECUTION_FOOTER = (
+        "\n\n# V2 Architecture: Drain remaining queues\n"
+        "scheduler.run()\n"
     )
 
     CTRL_C = b"\x03"  # Interrupt running program
@@ -72,7 +84,7 @@ class DeviceController:
             return {"status": "error", "message": "No robot connected!"}
 
         try:
-            full_code = self.EXECUTION_HEADER + block_code
+            full_code = self.EXECUTION_HEADER + block_code + self.EXECUTION_FOOTER
             self._enter_raw_repl()
             self._execute_raw(full_code)
             return {"status": "success"}
@@ -88,7 +100,7 @@ class DeviceController:
             return {"status": "error", "message": "No robot connected!"}
 
         try:
-            full_code = self.EXECUTION_HEADER + block_code
+            full_code = self.EXECUTION_HEADER + block_code + self.EXECUTION_FOOTER
             escaped_payload = json.dumps(full_code)
             storage_script = (
                 f"with open('main.py', 'w') as f:\n"

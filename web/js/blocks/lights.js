@@ -9,7 +9,7 @@
  */
 
 // ============================================================
-//  Existing: Simple onboard / external LED toggle
+//  Onboard / External LED toggle (ON / OFF / TOGGLE)
 // ============================================================
 
 Blockly.Blocks['led_toggle'] = {
@@ -36,8 +36,11 @@ python.pythonGenerator.forBlock['led_toggle'] = function (block) {
     const state = block.getFieldValue('STATE');
     if (state === "toggle") {
         return `${led}.toggle()\n`;
+    } else if (state === "1") {
+        return `${led}.on()\n`;
+    } else {
+        return `${led}.off()\n`;
     }
-    return `${led}.value(${state})\n`;
 };
 
 // ============================================================

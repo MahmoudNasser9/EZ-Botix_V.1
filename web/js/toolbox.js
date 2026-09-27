@@ -61,6 +61,7 @@ function buildToolboxXml() {
         <category name="⏱️ Tasks" colour="260">
             <block type="task_every_ms"></block>
             <block type="scheduler_run"></block>
+            <block type="scheduler_run_for"></block>
             <block type="scheduler_tick"></block>
         </category>
         <category name="🔢 Math" colour="230">
